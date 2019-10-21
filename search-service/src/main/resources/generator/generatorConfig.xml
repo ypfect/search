@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<properties resource="mybatis-generator/db.properties"/>
+	
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+		
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.itrip.starter.common.mapper.ItripMapper"/>
+        </plugin>
+		<!-- 数据库连接配置-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="${spring.datasource.druid.url}"
+                        userId="${spring.datasource.druid.username}"
+                        password="${spring.datasource.druid.password}">
+        </jdbcConnection>
+		<!-- 生成模型的位置-->
+        <javaModelGenerator targetPackage="com.itrip.bms.dto" targetProject="src/main/java"/>
+		<!-- 生成xml的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+		<!-- 生成接口的位置 -->
+        <javaClientGenerator targetPackage="com.itrip.bms.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
+
+		<!-- 需要生成的表 -->
+        <table tableName="oauth2_client">
+        	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

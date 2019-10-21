@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overstar.search.service.mapper.ProductDocumentMapper">
+
+
+    <resultMap id="BaseResultMap" type="com.overstar.search.export.domain.ProductDocument">
+<!--        <result column="storage_channel" jdbcType="INTEGER" property="storageChannel" />-->
+<!--        <result column="file_type" jdbcType="VARCHAR" property="fileType" />-->
+    </resultMap>
+
+
+    <select id="getProductDocSource" resultType="com.overstar.search.export.domain.ProductDocument" parameterType="hashmap">
+        select pb.product_id as productId,
+           group_concat(distinct replace(pb.product_name_zh,' ','')) as productNameZh,
+           group_concat(distinct replace(product_name_en,' ','')) as productNameEn,
+           group_concat(distinct replace(location_name_zh,' ','')) as viewSpotName,
+           group_concat(distinct replace(pt.tag_name,' ','')) as tagName
+        from product_base pb
+                 left join product_viewspot_mapping pm on pb.product_id = pm.product_id
+                 left join viewspot v on v.id = pm.viewspot_id
+                 left join product_tag_mapping ptm on pb.product_id = ptm.product_id
+                 left join product_tag pt on ptm.product_tag_id = pt.id
+        where pb.product_status = 200
+          and pt.status = 0
+        group by pb.product_id
+        limit #{start},#{size}
+    </select>
+
+
+</mapper>
