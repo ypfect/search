@@ -44,7 +44,7 @@ public class OrderIndexService implements IOrderIndexService {
         String s = JSON.toJSONString(model);
         IndexRequest indexRequest = new IndexRequest();
         indexRequest.source(s, XContentType.JSON);
-        indexRequest.index("order");
+        indexRequest.index("order") ;
         indexRequest.id(orderBase.getOrderNo());
 
         try {
