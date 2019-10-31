@@ -9,5 +9,6 @@ import org.springframework.stereotype.Service;
  * @Date 2019/9/24 9:18
  */
 @Service
+@com.alibaba.dubbo.config.annotation.Service
 public class ParentChildDocumentService implements IPriceAggrService {
 }

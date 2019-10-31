@@ -30,6 +30,7 @@ import java.util.List;
  * @Date 2019/9/19 22:25
  */
 @Service
+@com.alibaba.dubbo.config.annotation.Service
 public class OrderIndexService implements IOrderIndexService {
 
 

@@ -2,7 +2,7 @@ package com.overstar.search.service.web;
 
 import com.overstar.core.vo.Result;
 import com.overstar.order.export.api.IOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboController {
 
-    @Autowired
+    @Reference
     private IOrderService orderService;
 
     @RequestMapping("/dubbo")
