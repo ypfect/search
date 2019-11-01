@@ -1,8 +1,8 @@
 package com.overstar.search.service.web;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.overstar.core.vo.Result;
 import com.overstar.order.export.api.IOrderService;
-import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

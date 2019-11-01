@@ -1,0 +1,7 @@
+-Djava.net.preferIPv4Stack=true
+-Dcsp.sentinel.api.port=7788
+-Dcsp.sentinel.dashboard.server=aliyun:8718
+-Dproject.name=dubbo-order
+-Dnacos.config.server-addr=aliyun:8848
+-Dnacos.config.namespace=1c42d69d-3430-423b-93e9-2cea5cebb9e4
+-Dnacos.config.enabled=true
