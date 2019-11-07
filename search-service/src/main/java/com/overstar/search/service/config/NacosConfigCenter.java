@@ -1,8 +1,8 @@
 package com.overstar.search.service.config;
 
 import com.alibaba.nacos.api.config.annotation.NacosConfigListener;
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,11 +12,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @Slf4j
-@NacosPropertySource(dataId = "service_search", groupId = "BASE", autoRefreshed = true)
+@RefreshScope
 public class NacosConfigCenter {
-
     //监听nacos配置文件的变化
-    @NacosConfigListener(dataId = "service_search", groupId = "BASE",timeout = 500)
+    @NacosConfigListener(dataId = "overstar-search.properties", groupId = "BASE",timeout = 500)
     public void onChange(String newContent) {
         log.info("config has refresh ,content ={}",newContent);
     }
