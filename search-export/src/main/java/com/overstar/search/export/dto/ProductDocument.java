@@ -1,4 +1,4 @@
-package com.overstar.search.export.domain;
+package com.overstar.search.export.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

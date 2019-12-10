@@ -3,7 +3,7 @@ package com.overstar.search.service.service;
 import com.google.common.collect.Lists;
 import com.overstar.search.export.constants.EnumErrorCode;
 import com.overstar.search.export.constants.EnumIndexType;
-import com.overstar.search.export.domain.ProductDocument;
+import com.overstar.search.export.dto.ProductDocument;
 import com.overstar.search.export.exception.IndexException;
 import com.overstar.search.service.mapper.ProductDocumentMapper;
 import com.overstar.search.service.pop.EsPop;

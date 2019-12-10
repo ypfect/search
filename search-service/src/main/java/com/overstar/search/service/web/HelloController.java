@@ -1,6 +1,6 @@
 package com.overstar.search.service.web;
 
-import com.overstar.search.export.domain.ProductDocument;
+import com.overstar.search.export.dto.ProductDocument;
 import com.overstar.search.service.mapper.ProductDocumentMapper;
 import com.overstar.search.service.pop.EsPop;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;

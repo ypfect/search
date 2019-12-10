@@ -3,13 +3,13 @@
 <mapper namespace="com.overstar.search.service.mapper.ProductDocumentMapper">
 
 
-    <resultMap id="BaseResultMap" type="com.overstar.search.export.domain.ProductDocument">
+    <resultMap id="BaseResultMap" type="com.overstar.search.export.dto.ProductDocument">
 <!--        <result column="storage_channel" jdbcType="INTEGER" property="storageChannel" />-->
 <!--        <result column="file_type" jdbcType="VARCHAR" property="fileType" />-->
     </resultMap>
 
 
-    <select id="getProductDocSource" resultType="com.overstar.search.export.domain.ProductDocument" parameterType="hashmap">
+    <select id="getProductDocSource" resultType="com.overstar.search.export.dto.ProductDocument" parameterType="hashmap">
         select pb.product_id as productId,
            group_concat(distinct replace(pb.product_name_zh,' ','')) as productNameZh,
            group_concat(distinct replace(product_name_en,' ','')) as productNameEn,
