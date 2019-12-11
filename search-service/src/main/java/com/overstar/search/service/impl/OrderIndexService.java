@@ -1,6 +1,7 @@
 package com.overstar.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.overstar.order.export.domain.OrderBase;
 import com.overstar.order.export.domain.OrderStarDetail;
 import com.overstar.order.export.vo.OrderModel;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -52,16 +54,23 @@ public class OrderIndexService implements IOrderIndexService {
             OrderTileDocument document = new OrderTileDocument();
             BeanUtils.copyProperties(orderBase,document);
             BeanUtils.copyProperties(orderStarDetail,document);
-            document.setItem_id(orderStarDetail.getId());
+            document.setItemId(orderStarDetail.getId());
+            document.setOrderType((byte)1);
             String doc = JSON.toJSONString(document);
-
-            IndexRequest indexRequest = new IndexRequest();
-            indexRequest.source(doc, XContentType.JSON);
-            indexRequest.index("order") ;
-            indexRequest.id(String.valueOf(orderBase.getOrderNo()));
+            document.setDocCreateTime(LocalDateTime.now());
+            IndexRequest indexRequest = buildIndexRequest(doc, "order", String.valueOf(orderStarDetail.getId()));
             bulkRequest.add(indexRequest);
-
         });
+
+        /**
+         * 主订单 type=0
+         */
+        OrderTileDocument document = new OrderTileDocument();
+        BeanUtils.copyProperties(orderBase,document);
+        document.setOrderType((byte)0);
+        document.setDocCreateTime(LocalDateTime.now());
+        IndexRequest order = buildIndexRequest(JSON.toJSONString(document), "order", String.valueOf(document.getOrderNo()));
+        bulkRequest.add(order);
 
         client.bulkAsync(bulkRequest, RequestOptions.DEFAULT, new NotifyOnceListener<BulkResponse>() {
             @Override
@@ -76,5 +85,14 @@ public class OrderIndexService implements IOrderIndexService {
         });
 
         return true;
+    }
+
+    private IndexRequest buildIndexRequest(String source,String index,String id){
+        IndexRequest indexRequest = new IndexRequest();
+        indexRequest.source(source, XContentType.JSON);
+        indexRequest.index(index) ;
+        //取子订单id作为id
+        indexRequest.id(id);
+        return indexRequest;
     }
 }
